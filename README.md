@@ -18,24 +18,14 @@ This project allows users to store, retrieve, and manage passwords securely usin
 - **AES-GCM Encryption**: Implements AES-GCM for encrypting and decrypting passwords.
 - **Dump and Restore**: Ability to serialize the password database and restore it later.
 
-## API Usage
-- static async init(password)
-- static async load(password, representation, trustedDataCheck)
-- constructor(...)
-- async dump()
-- async set(name, value)
-- async get(name)
-- async remove(name)
+## Dependencies
+- SubtleCrypto API (for secure crypto operations on the web)
+- Mocha/Chai (JS testing framework w/ an assertion library)
+- npm 
+- Requests (Python library for making HTTP Requests)
+- Express (Node.js web framework)
+- Crypto (Node.js module for cryptograpjy operations)
 
-### Data Types 
-- stringToBuffer
-  > Converts a string into a buffer 
-- bufferToString
-  > Converts a buffer bacj into a string  
-- encodeBuffer
-  > Converts a buffer into a different, specified format (mainly for efficient data storage/transmission)
-- decodeBuffer
-  > Reverts an encoded buffer back to its OG format 
 
 ## Installation
 
@@ -44,6 +34,9 @@ To install the necessary dependencies, run:
 npm install
 ```
 Or, manually download all dependencies listed in the **requirements.txt** file
+```
+npm install express crypto requests mocha chai
+```
 
 ## Usage
 
@@ -102,6 +95,38 @@ Run the tests using the following command:
 ```bash
 npm test
 ```
+
+## API Usage
+- static async init(password)
+  > Initialize class w/ a given password
+  
+- static async load(password, representation, trustedDataCheck)
+  > Load data from a specified representation, using the password and a trusted data check to ensure authenticity
+  
+- constructor(...)
+  > Initialize a new instance of the class
+  
+- async dump()
+  > Dump/drop the class' current instance
+  
+- async set(name, value)
+  > Set a value with a given name from the class instance
+  
+- async get(name)
+  > Retrieve a value with a given name from the class instance
+  
+- async remove(name)
+  > Remove a value with a given name
+
+### Data Types 
+- stringToBuffer
+  > Converts a string into a buffer 
+- bufferToString
+  > Converts a buffer bacj into a string  
+- encodeBuffer
+  > Converts a buffer into a different, specified format (mainly for efficient data storage/transmission)
+- decodeBuffer
+  > Reverts an encoded buffer back to its OG format 
 
 ## License
 
