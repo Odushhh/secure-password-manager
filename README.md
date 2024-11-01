@@ -18,6 +18,25 @@ This project allows users to store, retrieve, and manage passwords securely usin
 - **AES-GCM Encryption**: Implements AES-GCM for encrypting and decrypting passwords.
 - **Dump and Restore**: Ability to serialize the password database and restore it later.
 
+## API Usage
+- static async init(password)
+- static async load(password, representation, trustedDataCheck)
+- constructor(...)
+- async dump()
+- async set(name, value)
+- async get(name)
+- async remove(name)
+
+### Data Types 
+- stringToBuffer
+  > Converts a string into a buffer 
+- bufferToString
+  > Converts a buffer bacj into a string  
+- encodeBuffer
+  > Converts a buffer into a different, specified format (mainly for efficient data storage/transmission)
+- decodeBuffer
+  > Reverts an encoded buffer back to its OG format 
+
 ## Installation
 
 To install the necessary dependencies, run:
