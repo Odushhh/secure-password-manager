@@ -1,14 +1,14 @@
 # Secure Password Manager
-Group project for my Cryptography class
+Group project for a Cryptography class
 
 ## Description
 This project allows users to store, retrieve, and manage passwords securely using cryptographic techniques.
 
 ## Contributors
-- 
+- Sammy Kitonga
+- Peris Makworo
 -
--
--
+- Adrian Oduma
 
 
 ## Features
