@@ -1,0 +1,6 @@
+chai==5.1.2          # Assertion library for testing
+mocha==10.8.2        # Test framework for running tests
+request==2.88.2      # Simplified HTTP client for making requests
+crypto               # Built-in Node.js module for cryptographic functions
+express==4.21.1      # Web framework for Node.js (if used in your project)
+npm==10.9.0
