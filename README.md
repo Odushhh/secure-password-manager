@@ -1,13 +1,13 @@
 # Password Manager
 
 ## Description
-This project is a secure password manager designed for a cryptography class. It allows users to store, retrieve, and manage passwords securely using cryptographic techniques.
+This project is a secure password manager designed for a cryptography class. It allows users to store, retrieve, and manage passwords securely using advanced cryptographic techniques. The password manager features strong encryption with AES-GCM, key derivation via PBKDF2, and data integrity ensured by HMAC. Additionally, it supports secure password sharing, enabling users to safely share credentials with trusted individuals using public-key cryptography. This project aims to provide a robust solution for password management while adhering to best practices in modern cryptography.
 
 ## Contributors
-- 
--
--
--
+- 127156 Adrian Oduma
+- 148224 Kitonga Sammy Musangi
+- 147916 Obongo Shalom Boniface
+- 152135 Makworo Peris Kemunto
 
 
 ## Features
