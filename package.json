@@ -1,0 +1,27 @@
+{
+  "name": "password-manager2",
+  "version": "1.0.0",
+  "description": "Group Project for my Cryptography Class",
+  "main": "pm_main.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha",
+    "run": "node test/test_script.js"
+  },
+  "author": "Oduma",
+  "license": "ISC",
+  "dependencies": {
+    "expect.js": "^0.3.1",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.0.0",
+    "chai": "^5.1.2",
+    "jest": "^29.7.0",
+    "mocha": "^10.8.2",
+    "request": "^2.88.2"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
