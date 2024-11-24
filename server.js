@@ -23,19 +23,39 @@ app.post('/api/init', async (req, res) => {
     
     // Try to load existing data from password_dump.json
     try {
-      const dumpContent = fs.readFileSync('password_dump.json', 'utf8');
-      const { repr, checksum } = JSON.parse(dumpContent);
-      keychain = await Keychain.load(password, repr, null, checksum);
-      res.json({ success: true });
+      // Check if file exists and has content
+      if (fs.existsSync('password_dump.json')) {
+        const dumpContent = fs.readFileSync('password_dump.json', 'utf8');
+        
+        // Check if file is empty or has invalid content
+        if (!dumpContent || dumpContent.trim() === '') {
+          // Create new keychain if file is empty
+          keychain = await Keychain.init(password);
+          const { repr, checksum } = await keychain.dump();
+          return res.json({ success: true });
+        }
+
+        try {
+          // Pass the entire dump content as the representation
+          keychain = await Keychain.load(password, dumpContent, null, null);
+          return res.json({ success: true });
+        } catch (parseError) {
+          console.error('Login error:', parseError);
+          return res.status(401).json({ error: 'Invalid master password' });
+        }
+      } else {
+        // Create new keychain if file doesn't exist
+        keychain = await Keychain.init(password);
+        const { repr, checksum } = await keychain.dump();
+        return res.json({ success: true });
+      }
     } catch (err) {
-      // If no existing data or invalid password, create new keychain
-      keychain = await Keychain.init(password);
-      const { repr, checksum } = await keychain.dump();
-      res.json({ success: true });
+      console.error('File operation error:', err);
+      return res.status(500).json({ error: 'Error accessing password dump file' });
     }
   } catch (error) {
     console.error('Initialization error:', error);
-    res.status(401).json({ error: 'Invalid master password' });
+    return res.status(401).json({ error: 'Invalid master password' });
   }
 });
 

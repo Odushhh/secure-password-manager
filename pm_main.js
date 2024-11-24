@@ -62,18 +62,32 @@ export class Keychain {
     if (!representation) throw new Error("Invalid representation: Data is undefined");
 
     const keychain = new Keychain();
-    const { kvs, salt } = JSON.parse(representation); // Deserialize the KVS and salt
-    keychain.salt = decodeBuffer(salt); // Store the salt
-    await keychain.deriveKey(password, keychain.salt);
-    // keychain.masterKey = await keychain.deriveKey(password, salt);
-    
-    // Verify integrity with SHA-256
-    const computedChecksum = await keychain.computeChecksum(representation);
-    if (computedChecksum !== trustedDataCheck) {
-      throw new Error("Integrity check failed!");
+    let data;
+    try {
+      data = JSON.parse(representation);
+    } catch (error) {
+      throw new Error("Invalid password dump format");
     }
 
-    keychain.kvs = kvs; // Load the KVS
+    const { kvs, salt } = data;
+    if (!salt) throw new Error("Invalid password dump: missing salt");
+    
+    keychain.salt = decodeBuffer(salt);
+    await keychain.deriveKey(password, keychain.salt);
+    
+    // Load the KVS
+    keychain.kvs = kvs || {};
+    
+    // Try to decrypt one password if any exist to verify the master password
+    const domains = Object.keys(keychain.kvs);
+    if (domains.length > 0) {
+      try {
+        await keychain.get(domains[0]);
+      } catch (error) {
+        throw new Error("Invalid master password");
+      }
+    }
+    
     return keychain;
   }
 
@@ -89,19 +103,19 @@ export class Keychain {
     const representation = JSON.stringify({ 
       kvs: this.kvs, 
       salt: encodeBuffer(this.salt) 
-    });     
+    }, null, 2);  // Added formatting for better readability
     const checksum = await this.computeChecksum(representation);
-    console.log("Dump Representation: ", representation);
 
-    // Save password dump into 'password_dump.json' file
-    fs.writeFileSync('password_dump.json', representation);
-    console.log("\nPassword dump saved to the file 'password_dump.json'. \n");
+    try {
+      // Save password dump into 'password_dump.json' file
+      fs.writeFileSync('password_dump.json', representation, { encoding: 'utf8', flag: 'w' });
+      console.log("\nPassword dump saved to the file 'password_dump.json'.\n");
+    } catch (error) {
+      console.error("Error saving password dump:", error);
+      throw new Error("Failed to save password dump");
+    }
 
-    return { repr: representation, checksum: checksum }; // Returns an array with serialized data and checksum
-
-    // Output for debugging
-    // console.log("Current KVS: ", this.kvs);
-    // console.log("Representation before returning: ", representation);
+    return { repr: representation, checksum }; // Returns object with serialized data and checksum
   }
 
   // Implementing computeHMAC using the SubtleCryptoAPI
