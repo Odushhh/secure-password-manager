@@ -9,7 +9,6 @@ This project is a secure password manager designed for a cryptography class. It 
 - 147916 Obongo Shalom Boniface
 - 152135 Makworo Peris Kemunto
 
-
 ## Features
 - **Secure Storage**: Passwords are stored in an encrypted format.
 - **HMAC Verification**: Each password entry is accompanied by an HMAC to ensure data integrity.
@@ -17,58 +16,99 @@ This project is a secure password manager designed for a cryptography class. It 
 - **AES-GCM Encryption**: Implements AES-GCM for encrypting and decrypting passwords.
 - **Dump and Restore**: Ability to serialize the password database and restore it later.
 
-## Installation
+## Setup Instructions
 
-To install the necessary dependencies, run:
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+
+### Development Mode
+
+To run the application in development mode with hot reloading:
+
+1. Start the backend server:
+```bash
+node server.js
+```
+
+2. In a new terminal, start the frontend development server:
+```bash
+npm run dev
+```
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Odushhh/secure-password-manager
+cd secure-password-manager
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
+3. Build the frontend:
+```bash
+npm run build
+```
+
+4. Start the application:
+```bash
+npm start
+```
+
+The application will be available at:
+- Frontend Development: http://localhost:5173 (when using npm run dev)
+- Production: http://localhost:3000 (when using npm start)
+
+
+
 ## Usage
 
-To start using the password manager, you can initialize it with a master password:
+### First Time Setup
+1. Visit the application in your browser
+2. Enter your desired master password
+3. This will create a new secure password vault
+
+### Accessing Existing Vault
+1. Enter your master password
+2. If the password is correct, you'll see your stored passwords
+
+### Managing Passwords
+- **Add Password**: Use the form at the top of the dashboard
+- **View Password**: Click the eye icon next to any password
+- **Copy Password**: Click the copy icon to copy to clipboard
+- **Delete Password**: Click the trash icon to remove a password
+
+### Security Notes
+- Your master password is never stored
+- All passwords are encrypted before storage
+- The application uses secure cryptographic methods
+- Always use a strong master password
+
+### Programmatic Usage
+
+For developers who want to use the password manager programmatically:
 
 ```javascript
+// Initialize with a master password
 const keychain = await Keychain.init('your_master_password');
-```
 
-### Setting a Password
-
-To set a password for a specific service:
-
-```javascript
+// Set a password
 await keychain.set('service_name', 'your_password');
-```
 
-### Retrieving a Password
-
-To retrieve a password for a specific service:
-
-```javascript
+// Get a password
 const password = await keychain.get('service_name');
-```
 
-### Removing a Password
-
-To remove a password for a specific service:
-
-```javascript
+// Remove a password
 await keychain.remove('service_name');
-```
 
-### Dumping the Database
-
-To dump the current state of the password manager:
-
-```javascript
+// Save the current state
 const data = await keychain.dump();
-```
 
-### Loading the Database
-
-To load a previously saved database:
-
-```javascript
+// Load a saved state
 const newKeychain = await Keychain.load('your_master_password', serializedData, checksum);
 ```
 
