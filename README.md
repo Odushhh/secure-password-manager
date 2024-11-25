@@ -4,10 +4,10 @@
 This project is a secure password manager designed for a cryptography class. It allows users to store, retrieve, and manage passwords securely using advanced cryptographic techniques. The password manager features strong encryption with AES-GCM, key derivation via PBKDF2, and data integrity ensured by HMAC. Additionally, it supports secure password sharing, enabling users to safely share credentials with trusted individuals using public-key cryptography. This project aims to provide a robust solution for password management while adhering to best practices in modern cryptography.
 
 ## Contributors
-- 148224 Kitonga Sammy Musangi
-- 147916 Obongo Shalom Boniface
-- 152135 Makworo Peris Kemunto
-- 127156 Adrian Oduma
+- [Kitonga Sammy Musangi](https://github.com/SMK-008)
+- [Obongo Shalom Boniface](https://github.com/ShalomObongo)
+- [Makworo Peris Kemunto](https://github.com/Perismakworo)
+- Adrian Oduma
 
 ## Features
 - **Secure Storage**: Passwords are stored in an encrypted format.
